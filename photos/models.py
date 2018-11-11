@@ -59,7 +59,7 @@ class Image (models.Model):
 
   @classmethod
   def update_image(cls, id, update):
-      updated = Photos.objects.filter(id=id).update(image=update)
+      updated = cls.objects.filter(id=id).update(image=update)
       return updated
 
   @classmethod
