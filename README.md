@@ -1,4 +1,4 @@
-##Gallary
+# Gallary
 
 
 ## Built by [Sylvia Elukwal](https:/elkwal/github.com/Gallary)
