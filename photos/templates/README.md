@@ -1,5 +1,4 @@
 #Gallary
-
 view you and your friends favourite pics
 
 ## Built by [Sylvia Elukwal](https:/elkwal/github.com/Gallary)
