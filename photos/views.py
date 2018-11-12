@@ -9,11 +9,9 @@ from .models import Image,Category,Location
 #     return HttpResponse('welcome to my gallary')
 
 global locations,categories
-locations=['NationalMusiuem','NationalMusiuem',
-        'MtKenya','Mtkenya',
-        'MombosaCity','MombosaCity']
+locations=['']
         
-categories=["Travel","Fashion","Workout"]
+categories=["Travel","Fashion","Music"]
 
 
 # Create your views here.
