@@ -29,6 +29,7 @@ This is a list files or directories for pitch app
 
 
 + `/model` - define  model classes
+
 + `Procfile` - heroku server configuration
 + `requirements.txt` - dependency file
 
