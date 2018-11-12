@@ -33,6 +33,7 @@ This is a list files or directories for pitch app
 + `requirements.txt` - dependency file
 
 ## Set up and installation
+
     1. Clone or download the Repository
     2. Create a virtual environment
     3. Read the specs and requirements files and Install all the requirements.
