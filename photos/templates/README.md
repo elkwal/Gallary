@@ -41,9 +41,6 @@ This is a list files or directories for pitch app
     6. Access the application through `localhost:8000
 
 ## Known bugs
-
-
-
 ## License
 
 This project is licensed under the MIT License - [License](LICENSE)
