@@ -1,124 +1,73 @@
-<nav style="background-attachment:fixed;" class="navbar navbar-expand-lg navbar-light bg-light">
-    <div class="container">
-      <a class="navbar-brand" href="{% url 'welcome' %}">Gallery</a>
-  
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-  
-      <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <nav style="background-attachment:fixed;" class="navbar navbar-expand-lg navbar-light bg-light">
-                    <div class="container">
-                      <a class="navbar-brand" href="{% url 'welcome' %}">Gallery</a>
-                  
-                      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                      </button>
-                  
-                      <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                              Locations
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                      {% for location in locations %}
-                                      <a href="/location/{{locations}}" class="btn badge-pill px-3 my-2 btn-outline-success mx-2">
-                                          <span>{{ location }}</span>
-                                      </a>
-                              {% endfor %}
-                            </div>
-                          </li>
-                  
-                          <nav style="background-attachment:fixed;" class="navbar navbar-expand-lg navbar-light bg-light">
-                            <div class="container">
-                              <a class="navbar-brand" href="{% url 'welcome' %}">Gallery</a>
-                          
-                              <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                                <span class="navbar-toggler-icon"></span>
-                              </button>
-                          
-                              <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                      Locations
-                                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                              {% for location in locations %}
-                                              <a href="/location/{{locations}}" class="btn badge-pill px-3 my-2 btn-outline-success mx-2">
-                                                  <span>{{ location }}</span>
-                                              </a>
-                                      {% endfor %}
-                                    </div>
-                                  </li>
-                          
-                                <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                      Categories
-                                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                              {% for category in categories %}
-                                              <a href="/category/{{category}}" class="btn badge-pill px-3 my-2 btn-outline-success mx-2">
-                                                  <span>{{ category}}</span>
-                                              </a>
-                                      {% endfor %}
-                                    </div>
-                                  </li>
-                          
-                                <form class="form-inline my-2 my-lg-0" role="search" action="{%url 'search_results'%}">
-                                  {% csrf_token %}
-                                 <input class="form-control mr-sm-2" type="search" placeholder="search by Category" name="image" aria-label="Search">
-                                   <button style="color:black;background:white" type="submit" class="btn btn-primary">Search <i class="fa fa-bug"></i> </button>
-                              </form>
-                                </form>
-                          
-                              </div>
-                            </div>
-                          </nav>              <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                              Categories
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                      {% for category in categories %}
-                                      <a href="/category/{{category}}" class="btn badge-pill px-3 my-2 btn-outline-success mx-2">
-                                          <span>{{ category}}</span>
-                                      </a>
-                              {% endfor %}
-                            </div>
-                          </li>
-                  
-                        <form class="form-inline my-2 my-lg-0" role="search" action="{%url 'search_results'%}">
-                          {% csrf_token %}
-                         <input class="form-control mr-sm-2" type="search" placeholder="search by Category" name="image" aria-label="Search">
-                           <button style="color:black;background:white" type="submit" class="btn btn-primary">Search <i class="fa fa-bug"></i> </button>
-                      </form>
-                        </form>
-                  
-                      </div>
-                    </div>
-                  </nav>    Locations
-            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                      {% for location in locations %}
-                      <a href="/location/{{locations}}" class="btn badge-pill px-3 my-2 btn-outline-success mx-2">
-                          <span>{{ location }}</span>
-                      </a>
-              {% endfor %}
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+  <div class="row">
+    {% if images %}
+    <h2> Found {{images|length}} images for the search term "{{message}}"</h2>
+    {% else %}
+    <h2> Found 0 images for the search term "{{message}}"</h2>
+    {% endif %}
+  </div>
+
+<div class="row">
+  {% if images %}
+    {% for image in images %}
+    <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3 padding-0">
+      <img src="{{image.Image.url}}" class=" img img-responsive" data-toggle="modal" data-target="#{{image.id}}">
+    </div>
+
+    <!-- Modal -->
+
+    <div class="modal fade" id="{{image.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header text-center">
+            <h3 class="modal-title" id="exampleModalLongTitle">{{image.title}}</h3>
+            <h4 class="modal-title">{{image.location}}</h4>
+            <h5 class="modal-title">{{image.post_date}}</h5>
+
+
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <!-- <span aria-hidden="true">&times;</span> -->
+            </button>
+          </div>
+
+          <div class="modal-body">
+            <!-- <div class="row"> -->
+              <div class="text-center">
+              <!-- <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10"> -->
+                <img src='{{image.image.url}}' class="img-responsive" width=100% height=100% alt="Image">
+              <!-- </div> -->
             </div>
-          </li>
-  
-        <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Categories
-            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                      {% for category in categories %}
-                      <a href="/category/{{category}}" class="btn badge-pill px-3 my-2 btn-outline-success mx-2">
-                          <span>{{ category}}</span>
-                      </a>
-              {% endfor %}
+          <!-- </div> -->
+
+          </div>
+
+          <div class="modal-footer">
+            <!-- Target -->
+            <div class="form-group row">
+              <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 padding-1">
+                <input id="{{image.id}}-url"  class="form-control input-md responsive" type="text" value="{{ALLOWED_HOSTS}}{{image.image.url}}">
+              </div>
+
+
+              <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 padding-2">
+                <button class="btn btn-secondary" onclick="copyToClipboard('#{{image.id}}-url')">Copy</button>
+              </div>
             </div>
-          </li>
-  
-        <form class="form-inline my-2 my-lg-0" role="search" action="{%url 'search_results'%}">
-          {% csrf_token %}
-         <input class="form-control mr-sm-2" type="search" placeholder="search by Category" name="image" aria-label="Search">
-           <button style="color:black;background:white" type="submit" class="btn btn-primary">Search <i class="fa fa-bug"></i> </button>
-      </form>
-        </form>
-  
+
+
+            <div class="text-center">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-  </nav>
+    {% endfor %}
+    {%endif %}
+</div>
+</div>
+
+{% endblock %}
